@@ -134,7 +134,7 @@ public class HeadsEmbeddedWrapper implements ModelListener {
 				service.submitScript(
 						"add node938 : eu.heads.ArduinoNode\n" + "add node938.comp772 : eu.heads.LedComponent\n"
 								+ "add chan727 : eu.heads.VirtualChan\n"
-								+ "bind node938.comp772.in chan727\n" + "bind node0.com1.triggerEmbeeddedSystem chan727",
+								+ "bind node938.comp772.in chan727\n" + "bind node0.comp47.input chan727",
 						new UpdateCallback() {
 							public void run(Boolean arg0) {
 								// System.err.println(arg0);

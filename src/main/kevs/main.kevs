@@ -1,4 +1,6 @@
 add node0 : JavaNode
 add node0.com1 : HeadsEmbeddedWrapper
+add node0.comp47 : ConsolePrinter
 add sync : WSGroup
 attach node0 sync
+
