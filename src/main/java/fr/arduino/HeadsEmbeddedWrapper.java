@@ -47,10 +47,10 @@ public class HeadsEmbeddedWrapper implements ModelListener {
 	ContainerRoot r;
 
 	
-	@Output(optional=false)
+	@Output(optional=true)
 	Port getModel;
 
-	@Output(optional=false)
+	@Output(optional=true)
 	Port getModelInstance;
 
 	
@@ -114,44 +114,11 @@ public class HeadsEmbeddedWrapper implements ModelListener {
 				final KevoreeFactory fact = new DefaultKevoreeFactory();
 				
 				JSONModelLoader loader = new JSONModelLoader(fact);
-				List<KMFContainer> list = loader.loadModelFromString(
-						"{\"class\":\"org.kevoree.ContainerRoot@0.58330028364434841449655951491\",\"generated_KMF_ID\":\"0.58330028364434841449655951491\",\"nodes\":[],\"repositories\":[]"
-								+ ",\"hubs\":[],\"mBindings\":[],\"groups\":[],\"packages\":["
-								+ "{\"class\":\"org.kevoree.Package@eu\",\"name\":\"eu\",\"packages\":["
-								+ "{\"class\":\"org.kevoree.Package@heads\",\"name\":\"heads\",\"packages\":[],\"typeDefinitions\":["
-								+ "{\"class\":\"org.kevoree.ComponentType@name=ArduinoDigitalInput,version=1.0.0\",\"abstract\":\"false\",\"name\":\"ArduinoDigitalInput\",\"version\":\"1.0.0\",\"deployU"
-								+ "nits\":[\"packages[eu]/packages[heads]/deployUnits[hashcode=,name=ArduinoDigitalInput,version=1.0.0]\"],\"superTypes\":[],\"dictionaryType\":["
-								+ "{\"class\":\"org.kevoree.DictionaryType@0.55247031222097581449655951510\",\"generated_KMF_ID\":\"0.55247031222097581449655951510\",\"attributes\":["
-								+ "{\"class\":\"org.kevoree.DictionaryAttribute@pin\",\"fragmentDependant\":\"false\",\"optional\":\"true\",\"name\":\"pin\",\"state\":\"false\",\"datatype\":\"INT\",\"defaultVal"
-								+ "ue\":\"13\",\"genericTypes\":[]}" + "]}"
-								+ "],\"metaData\":[],\"required\":[],\"provided\":["
-								+ "{\"class\":\"org.kevoree.PortTypeRef@off\",\"noDependency\":\"false\",\"optional\":\"false\",\"name\":\"off\",\"ref\":[],\"mappings\":[]}"
-								+ ","
-								+ "{\"class\":\"org.kevoree.PortTypeRef@on\",\"noDependency\":\"false\",\"optional\":\"false\",\"name\":\"on\",\"ref\":[],\"mappings\":[]}"
-								+ "]}" + "],\"deployUnits\":["
-								+ "{\"class\":\"org.kevoree.DeployUnit@hashcode=,name=ArduinoDigitalInput,version=1.0.0\",\"name\":\"ArduinoDigitalInput\",\"hashcode\":\"\",\"url\":\"\",\"version\":\"1.0."
-								+ "0\",\"requiredLibs\":[],\"filters\":["
-								+ "{\"class\":\"org.kevoree.Value@platform\",\"name\":\"platform\",\"value\":\"arduino\"}"
-								+ "]}" + "]}" + "],\"typeDefinitions\":[],\"deployUnits\":[]}" + "]}");
-
-				String nodemode = "{\"class\":\"org.kevoree.ContainerRoot@0.71788802114315331449658269020\",\"generated_KMF_ID\":\"0.71788802114315331449658269020\",\"nodes\":[],\"repositories\":[],\"hubs\":[],\"mBindings\":[],\"groups\":[],\"packages\":[{\"class\":\"org.kevoree.Package@eu\",\"name\":\"eu\",\"packages\":[{\"class\":\"org.kevoree.Package@heads\",\"name\":\"heads\",\"packages\":[],\"typeDefinitions\":[{\"class\":\"org.kevoree.NodeType@name=ArduinoNode,version=1.0.0\",\"abstract\":\"false\",\"name\":\"ArduinoNode\",\"version\":\"1.0.0\",\"deployUnits\":[\"packages[eu]/packages[heads]/deployUnits[hashcode=,name=ArduinoNode,version=1.0.0]\"],\"superTypes\":[],\"dictionaryType\":[{\"class\":\"org.kevoree.DictionaryType@0.49977423623204231449658269047\",\"generated_KMF_ID\":\"0.49977423623204231449658269047\",\"attributes\":[{\"class\":\"org.kevoree.DictionaryAttribute@serialPort\",\"fragmentDependant\":\"false\",\"optional\":\"true\",\"name\":\"serialPort\",\"state\":\"false\",\"datatype\":\"STRING\",\"defaultValue\":\"/dev/serial\",\"genericTypes\":[]}]}],\"metaData\":[]}],\"deployUnits\":[{\"class\":\"org.kevoree.DeployUnit@hashcode=,name=ArduinoNode,version=1.0.0\",\"name\":\"ArduinoNode\",\"hashcode\":\"\",\"url\":\"\",\"version\":\"1.0.0\",\"requiredLibs\":[],\"filters\":[{\"class\":\"org.kevoree.Value@platform\",\"name\":\"platform\",\"value\":\"arduino\"}]}]}],\"typeDefinitions\":[],\"deployUnits\":[]}]}";
-				List<KMFContainer> list1 = loader.loadModelFromString(nodemode);
-
-				String channelName = "{\"class\":\"org.kevoree.ContainerRoot@0.81874583777971571449663371208\",\"generated_KMF_ID\":\"0.81874583777971571449663371208\",\"nodes\":[],\"repositories\":[],\"hubs\":[],\"mBindings\":[],\"groups\":[],\"packages\":[{\"class\":\"org.kevoree.Package@eu\",\"name\":\"eu\",\"packages\":[{\"class\":\"org.kevoree.Package@heads\",\"name\":\"heads\",\"packages\":[],\"typeDefinitions\":[{\"class\":\"org.kevoree.ChannelType@name=ArduinoChannel,version=1.0.0\",\"upperFragments\":\"0\",\"abstract\":\"false\",\"upperBindings\":\"0\",\"lowerBindings\":\"0\",\"lowerFragments\":\"0\",\"name\":\"ArduinoChannel\",\"version\":\"1.0.0\",\"deployUnits\":[\"packages[eu]/packages[heads]/deployUnits[hashcode=,name=ArduinoChannel,version=1.0.0]\"],\"superTypes\":[],\"dictionaryType\":[{\"class\":\"org.kevoree.DictionaryType@0.8498527975752951449663371226\",\"generated_KMF_ID\":\"0.8498527975752951449663371226\",\"attributes\":[]}],\"metaData\":[]}],\"deployUnits\":[{\"class\":\"org.kevoree.DeployUnit@hashcode=,name=ArduinoChannel,version=1.0.0\",\"name\":\"ArduinoChannel\",\"hashcode\":\"\",\"url\":\"\",\"version\":\"1.0.0\",\"requiredLibs\":[],\"filters\":[{\"class\":\"org.kevoree.Value@platform\",\"name\":\"platform\",\"value\":\"arduino\"}]}]}],\"typeDefinitions\":[],\"deployUnits\":[]}]}";
-				List<KMFContainer> list2 = loader.loadModelFromString(channelName);
-
+				List<KMFContainer> list = loader.loadModelFromString("{     \"class\": \"root:org.kevoree.ContainerRoot@0.76609817403368651453298639450\",     \"generated_KMF_ID\": \"0.76609817403368651453298639450\",     \"nodes\": [],     \"repositories\": [],     \"hubs\": [],     \"mBindings\": [],     \"groups\": [],     \"packages\": [         {             \"class\": \"org.kevoree.Package@eu\",             \"name\": \"eu\",             \"packages\": [                 {                     \"class\": \"org.kevoree.Package@heads\",                     \"name\": \"heads\",                     \"packages\": [],                     \"typeDefinitions\": [                         {                             \"class\": \"org.kevoree.NodeType@name=ArduinoNode,version=1.0.0\",                             \"abstract\": \"false\",                             \"name\": \"ArduinoNode\",                             \"version\": \"1.0.0\",                             \"deployUnits\": [],                             \"superTypes\": [],                             \"dictionaryType\": [                                 {                                     \"class\": \"org.kevoree.DictionaryType@0.0101809580810368061453298639480\",                                     \"generated_KMF_ID\": \"0.0101809580810368061453298639480\",                                     \"attributes\": []                                 }                             ],                             \"metaData\": [                                 {                                     \"class\": \"org.kevoree.Value@virtual\",                                     \"name\": \"virtual\",                                     \"value\": \"true\"                                 }                             ]                         },                         {                             \"class\": \"org.kevoree.ComponentType@name=LedComponent,version=1.0.0\",                             \"abstract\": \"false\",                             \"name\": \"LedComponent\",                             \"version\": \"1.0.0\",                             \"deployUnits\": [],                             \"superTypes\": [],                             \"dictionaryType\": [                                 {                                     \"class\": \"org.kevoree.DictionaryType@0.42434838530607521453298414303\",                                     \"generated_KMF_ID\": \"0.42434838530607521453298414303\",                                     \"attributes\": []                                 }                             ],                             \"metaData\": [                                 {                                     \"class\": \"org.kevoree.Value@virtual\",                                     \"name\": \"virtual\",                                     \"value\": \"true\"                                 }                             ],                             \"required\": [                                 {                                     \"class\": \"org.kevoree.PortTypeRef@out\",                                     \"noDependency\": \"false\",                                     \"optional\": \"false\",                                     \"name\": \"out\",                                     \"ref\": [],                                     \"mappings\": []                                 }                             ],                             \"provided\": [                                 {                                     \"class\": \"org.kevoree.PortTypeRef@in\",                                     \"noDependency\": \"false\",                                     \"optional\": \"false\",                                     \"name\": \"in\",                                     \"ref\": [],                                     \"mappings\": []                                 }                             ]                         },                         {                             \"class\": \"org.kevoree.ChannelType@name=VirtualChan,version=1.0.0\",                             \"upperFragments\": \"0\",                             \"abstract\": \"false\",                             \"upperBindings\": \"0\",                             \"lowerBindings\": \"0\",                             \"lowerFragments\": \"0\",                             \"name\": \"VirtualChan\",                             \"version\": \"1.0.0\",                             \"deployUnits\": [],                             \"superTypes\": [],                             \"dictionaryType\": [                                 {                                     \"class\": \"org.kevoree.DictionaryType@0.43144291522912681453298470489\",                                     \"generated_KMF_ID\": \"0.43144291522912681453298470489\",                                     \"attributes\": []                                 }                             ],                             \"metaData\": [                                 {                                     \"class\": \"org.kevoree.Value@virtual\",                                     \"name\": \"virtual\",                                     \"value\": \"true\"                                 }                             ]                         }                     ],                     \"deployUnits\": []                 }             ],             \"typeDefinitions\": [],             \"deployUnits\": []         }     ] }");
 				ModelCompare merge = new ModelCompare(fact);
-
-				TraceSequence s = merge.merge(list.get(0), list1.get(0));
-				// System.err.println(s.toString());
-				s.applyOn(list.get(0));
-				s = merge.merge(list.get(0), list2.get(0));
-				s.applyOn(list.get(0));
-				JSONModelSerializer serializer = new JSONModelSerializer();
-				System.err.println(serializer.serialize(list.get(0)));
 				ModelCloner cloner = fact.createModelCloner();
 				ContainerRoot r1 = cloner.clone(r);
-				s = merge.merge(r1, list.get(0));
+				TraceSequence s = merge.merge(r1, list.get(0));
 				s.applyOn(r1);
 
 				getArduinoModel = true;
@@ -165,9 +132,9 @@ public class HeadsEmbeddedWrapper implements ModelListener {
 			if (getArduinoModel && !getArduinoModelInstance) {
 				getArduinoModelInstance = true;
 				service.submitScript(
-						"add node938 : eu.heads.ArduinoNode\n" + "add node938.comp772 : eu.heads.ArduinoDigitalInput\n"
-								+ "add chan727, chan883 : eu.heads.ArduinoChannel\n"
-								+ "bind node938.comp772.off chan727\n" + "bind node938.comp772.on chan883",
+						"add node938 : eu.heads.ArduinoNode\n" + "add node938.comp772 : eu.heads.LedComponent\n"
+								+ "add chan727 : eu.heads.VirtualChan\n"
+								+ "bind node938.comp772.in chan727\n" + "bind node0.com1.triggerEmbeeddedSystem chan727",
 						new UpdateCallback() {
 							public void run(Boolean arg0) {
 								// System.err.println(arg0);
