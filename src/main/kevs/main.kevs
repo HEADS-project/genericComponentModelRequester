@@ -1,0 +1,4 @@
+add node0 : JavaNode
+add node0.com1 : ArduinoWrapper
+add sync : WSGroup
+attach node0 sync
