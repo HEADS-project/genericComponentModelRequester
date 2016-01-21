@@ -1,6 +1,43 @@
-add node0 : JavaNode
-add node0.com1 : HeadsEmbeddedWrapper
-add node0.comp47 : ConsolePrinter
-add sync : WSGroup
+// JavaNode/5.3.2-SNAPSHOT or greather is needed to use virtual TypeDefinition
+add node0 : JavaNode/5.3.2-SNAPSHOT
+// EmbeddedWrapper is a generic component able to ask for a model and its instances through its outputs
+add node0.embeddedWrapper : eu.heads.EmbeddedWrapper
+// ToyConsoles are there just to be able to trigger manually the getModel & getInstances requests
+add node0.updateModel, node0.updateInstances: ToyConsole
+
+add node0.updateModelSub, node0.updateInstancesSub : MQTTSubClient/5.3.2-SNAPSHOT
+add node0.updateModelPub, node0.updateInstancesPub : MQTTPubClient/5.3.2-SNAPSHOT
+add toy2mqttModel, toy2mqttInst, mqtt2wrapperModel, mqtt2wrapperInst : SyncBroadcast/5.3.1
+
+///////////////////////////
+// Model sharing conf
+add sync: WSGroup
+set sync.master = 'node0'
 attach node0 sync
+///////////////////////////
+
+bind node0.updateModelSub.onMsg mqtt2wrapperModel
+bind node0.embeddedWrapper.modelUpdate mqtt2wrapperModel
+bind node0.embeddedWrapper.instancesUpdate mqtt2wrapperInst
+bind node0.updateInstancesSub.onMsg mqtt2wrapperInst
+bind node0.updateModel.textEntered toy2mqttModel
+bind node0.updateModelPub.pub toy2mqttModel
+bind node0.updateInstancesPub.pub toy2mqttInst
+bind node0.updateInstances.textEntered toy2mqttInst
+
+set node0.updateModelSub.topic = '/updateModel'
+set node0.updateModelSub.host = 'mqtt.kevoree.org'
+set node0.updateModelSub.port = '1883'
+set node0.updateModelPub.topic = '/updateModel'
+set node0.updateModelPub.host = 'mqtt.kevoree.org'
+set node0.updateModelPub.port = '1883'
+set node0.updateInstancesPub.topic = '/updateInstances'
+set node0.updateInstancesPub.host = 'mqtt.kevoree.org'
+set node0.updateInstancesPub.port = '1883'
+set node0.updateInstancesSub.topic = '/updateInstances'
+set node0.updateInstancesSub.host = 'mqtt.kevoree.org'
+set node0.updateInstancesSub.port = '1883'
+
+
+
 

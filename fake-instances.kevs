@@ -1,0 +1,4 @@
+add node1: eu.heads.ArduinoNode
+attach node1 sync
+add node1.led: eu.heads.LedComponent
+add vChan: eu.heads.VirtualChan
