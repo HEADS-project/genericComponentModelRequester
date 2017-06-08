@@ -4,19 +4,19 @@ import org.kevoree.ContainerRoot;
 import org.kevoree.annotation.ComponentType;
 import org.kevoree.annotation.Input;
 import org.kevoree.annotation.KevoreeInject;
-import org.kevoree.annotation.Output;
 import org.kevoree.api.*;
-import org.kevoree.api.handler.UpdateCallback;
 import org.kevoree.factory.DefaultKevoreeFactory;
 import org.kevoree.factory.KevoreeFactory;
 import org.kevoree.log.Log;
-import org.kevoree.pmodeling.api.KMFContainer;
-import org.kevoree.pmodeling.api.ModelCloner;
-import org.kevoree.pmodeling.api.compare.ModelCompare;
-import org.kevoree.pmodeling.api.json.JSONModelLoader;
-import org.kevoree.pmodeling.api.trace.TraceSequence;
+import org.kevoree.modeling.api.KMFContainer;
+import org.kevoree.modeling.api.ModelCloner;
+import org.kevoree.modeling.api.compare.ModelCompare;
+import org.kevoree.modeling.api.json.JSONModelLoader;
+import org.kevoree.modeling.api.trace.TraceSequence;
+import org.kevoree.service.ModelService;
 
-@ComponentType(description="This component is able to modify the current Kevoree model when messages are received on its input ports:"+
+@ComponentType(version=1, description=
+"This component is able to modify the current Kevoree model when messages are received on its input ports:"+
 "<ul>"+
         "<li>modelUpdate</li>"+
         "<li>instancesUpdate</li>"+
@@ -35,34 +35,41 @@ public class EmbeddedWrapper {
 	@KevoreeInject
 	private ModelService service;
 
+    private final KevoreeFactory fact = new DefaultKevoreeFactory();
+    private final JSONModelLoader loader = fact.createJSONLoader();
+    private final ModelCompare merge = fact.createModelCompare();
+    private final ModelCloner cloner = fact.createModelCloner();
+
 	@Input
     public void modelUpdate(String modelStr) {
         // merge the received model with the current one
-        final KevoreeFactory fact = new DefaultKevoreeFactory();
-        final JSONModelLoader loader = new JSONModelLoader(fact);
-        final ModelCompare merge = new ModelCompare(fact);
-        final ModelCloner cloner = new ModelCloner(fact);
-
-        KMFContainer embeddedModel = loader.loadModelFromString(modelStr).get(0);
-        ContainerRoot currentModel = cloner.clone(service.getCurrentModel().getModel());
-        TraceSequence s = merge.merge(currentModel, embeddedModel);
-        if (!s.getTraces().isEmpty()) {
-            s.applyOn(currentModel);
-            service.update(currentModel, new UpdateCallback() {
-                public void run(Boolean applied) {
-                    Log.info("updateModel - {}", applied);
-                }
-            });
+        try {
+            KMFContainer embeddedModel = loader.loadModelFromString(modelStr).get(0);
+            ContainerRoot currentModel = cloner.clone(service.getCurrentModel());
+            TraceSequence s = merge.merge(currentModel, embeddedModel);
+            if (!s.getTraces().isEmpty()) {
+                s.applyOn(currentModel);
+                service.update(currentModel, (e) -> {
+                    if (e == null) {
+                        Log.info("EmbeddedWrapper: model updated successfully");
+                    } else {
+                        Log.warn("EmbeddedWrapper: model update failed");
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.warn("EmbeddedWrapper: input model is invalid", e);
         }
 	}
 
     @Input
     public void instancesUpdate(String kevscript) {
         // execute the received KevScript in order to add instances to the current model
-        service.submitScript(kevscript, new UpdateCallback() {
-            @Override
-            public void run(Boolean applied) {
-                Log.info("updateModel - {}", applied);
+        service.submitScript(kevscript, (e) -> {
+            if (e == null) {
+                Log.info("EmbeddedWrapper: KevScript executed successfully");
+            } else {
+                Log.warn("EmbeddedWrapper: KevScript execution failed");
             }
         });
     }
